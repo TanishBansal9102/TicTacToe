@@ -119,6 +119,7 @@ def ais_move(board):
     score = - 2               #anything smaller than min score
     x = -1                    #the row no. of cell which AI chosses for best move
     y = -1                    #the column no. of cell which AI chosses for best move
+
     for i in range(len(board)):
         for j in range(len(board[0])):
             if board[i][j] == "-":
@@ -148,17 +149,33 @@ def game(board):
 
     will_play = input("Will you play with me? y/N  ")
 
+    print("")
+    print("Initial Empty Board-")
     print_board_state(board)
     print("")
 
     if(will_play.upper() == "Y"):
         while winner(board) == "continue":
 
-            location = input("Enter space seperated row and column no (0-indexed) of the cell you want to choose: ")
-            space_pos = location.find(" ")
-            x = int(location[ : space_pos])
-            y = int(location[space_pos + 1 : ])
-            board[x][y] = "O"
+            location = input("Enter space seperated row[0-2] and column[0-2] no (0-indexed) of the cell you want to choose: ")
+            while True:
+                try:
+                    space_pos = location.find(" ")
+                    x = int(location[ : space_pos])
+                    y = int(location[space_pos + 1 : ])
+
+                    #if player makes an illegal move i.e chooses a cell which is already filled
+                    if board[x][y] != "-":
+                        location = input("Please enter valid input for example '1 2'(Note: the entered cell should be empty): ")
+                        continue
+
+                    board[x][y] = "O"
+                    break
+                
+                #if the player enters wrong or out of bounds cell location
+                except:
+                    location = input("Please enter valid input for example '1 2'(Note: the entered cell should be empty): ")
+
 
             print("")
             print("After your Move-")
