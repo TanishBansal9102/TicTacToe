@@ -14,7 +14,14 @@ value_dict = {
 }
 
 def print_board_state(board):
-    # this functions takes the board as an argument and prints it on the console
+    # Description - prints the current snapshot of the board to the console 
+    
+    # Arguments :-
+    # board - a nested list which is the current snapshot of the board
+
+    #Returns :-
+    # nothing
+
     print("\n#########################\n")
     for row in board:
         print(row[0],row[1],row[2])
@@ -22,10 +29,12 @@ def print_board_state(board):
 
 
 def winner(board):
+    #Description - determines the winner of the current board or if it is Still not  clear who will win
+
     # Arguments :-
     # board - a nested list which is the current snapshot of the board
 
-    #returns :=
+    #Returns :-
     # "X" - if X wins 
     # "O" - if O wins 
     # "tie" - if game is a tie 
@@ -71,12 +80,14 @@ def winner(board):
     return "tie"
 
 
-def minimax(board, is_this_AIs_turn): 
+def minimax(board, is_this_AIs_turn):
+    #Description - Implementation of the minimax algorithm
+
     #Arguments :-
     #board - a nested list which is the current snapshot of the board
     #is_this_AIs_turn - a boolean which is true if AI is the current Player
 
-    #returns :-
+    #Returns :-
     #the value of the current node 
 
     winner_player = winner(board)
@@ -110,11 +121,13 @@ def minimax(board, is_this_AIs_turn):
                 
 
 def ais_move(board):
+    #Description - determines the next move of the AI
+
     #Arguments :-
     #board - a nested list which is the current snapshot of the board
 
-    #returns :-
-    #an array with 2 items representing the best move for AI in the current position
+    #Returns :-
+    #an array with 2 items representing the coordinates of the cell 
 
     score = - 2               #anything smaller than min score
     x = -1                    #the row no. of cell which AI chosses for best move
@@ -136,12 +149,12 @@ def ais_move(board):
 
 
 def game(board):
-    #the main function of the program
+    #Description - the main function of the program which runs the game on the console
 
     #Arguments :-
     #board - a nested list which is the current snapshot of the board
 
-    #returns :-
+    #Returns :-
     #nothing
 
     print("")
@@ -193,6 +206,7 @@ def game(board):
             print_board_state(board)
             print("")
 
+            #checking if the game has ended after the player's move
             if winner(board) == "O": 
                 print("Congratulations! YOU WON")
                 break
@@ -205,7 +219,7 @@ def game(board):
                 print("OOPS! It's a TIE")
                 break
 
-
+            #AI playing it's move
             AIs_turn = ais_move(board)
             x = AIs_turn[0]
             y = AIs_turn[1]
@@ -215,6 +229,7 @@ def game(board):
             print_board_state(board)
             print("")
 
+            #checking if the game has ended after the AI's move
             if winner(board) == "O": 
                 print("Congratulations! YOU WON")
                 break
@@ -226,7 +241,8 @@ def game(board):
             elif winner(board) == "tie": 
                 print("OOPS! It's a TIE")
                 break
-            
+
+          
 #calling the main function to start the game
 game(board)
 
