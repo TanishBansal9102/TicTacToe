@@ -109,13 +109,32 @@ def minimax(board, is_this_AIs_turn):
 
                 
 
+def ais_move(board):
+    #Arguments :-
+    #board - a nested list which is the current snapshot of the board
 
+    #returns :-
+    #an array with 2 items representing the best move for AI in the current position
+
+    score = - 2               #anything smaller than min score
+    x = -1                    #the row no. of cell which AI chosses for best move
+    y = -1                    #the column no. of cell which AI chosses for best move
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j] == "-":
+                board[i][j] = "X"
+                curr_score = minimax(board,False)
+                board[i][j] = "-"
+                if curr_score > score:
+                    score = curr_score
+                    x = i 
+                    y = j
+    return [x, y]
 
 dummy_board = [
-    ["O","X","-"], 
-    ["X","X","O"],
-    ["O","O","-"]]
+    ["X","O","-"], 
+    ["X","O","O"],
+    ["-","X","-"]]
 
-print(minimax(dummy_board,True))
-
+print(ais_move(dummy_board)[0],ais_move(dummy_board)[1])
 
