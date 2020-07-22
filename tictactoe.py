@@ -138,8 +138,14 @@ def ais_move(board):
 def game(board):
     #the main function of the program
 
+    #Arguments :-
+    #board - a nested list which is the current snapshot of the board
+
+    #returns :-
+    #nothing
+
     print("")
-    print("Hey human you have made enough memes on me on")
+    print("Hey human AI here, you have made enough memes on me on")
     print("social media and I am sick of it, therefore ")
     print("I challenge you to a match of Tic-Tac-Toe")
     print("You are 'O' and I am 'X' and I being the ")
@@ -149,15 +155,19 @@ def game(board):
 
     will_play = input("Will you play with me? y/N  ")
 
-    print("")
-    print("Initial Empty Board-")
-    print_board_state(board)
-    print("")
-
     if(will_play.upper() == "Y"):
+
+        #printing the initial empty board
+        print("")
+        print("Initial Empty Board-")
+        print_board_state(board)
+        print("")
+
+        #playing the game until it ends
         while winner(board) == "continue":
 
             location = input("Enter space seperated row[0-2] and column[0-2] no (0-indexed) of the cell you want to choose: ")
+            location = location.strip()
             while True:
                 try:
                     space_pos = location.find(" ")
@@ -165,7 +175,7 @@ def game(board):
                     y = int(location[space_pos + 1 : ])
 
                     #if player makes an illegal move i.e chooses a cell which is already filled
-                    if board[x][y] != "-":
+                    if board[x][y] != "-" or space_pos == -1:
                         location = input("Please enter valid input for example '1 2'(Note: the entered cell should be empty): ")
                         continue
 
@@ -175,6 +185,7 @@ def game(board):
                 #if the player enters wrong or out of bounds cell location
                 except:
                     location = input("Please enter valid input for example '1 2'(Note: the entered cell should be empty): ")
+                    location = location.strip()
 
 
             print("")
@@ -216,7 +227,7 @@ def game(board):
                 print("OOPS! It's a TIE")
                 break
             
-
+#calling the main function to start the game
 game(board)
 
 
