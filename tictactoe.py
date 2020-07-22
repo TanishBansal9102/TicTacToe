@@ -1,9 +1,17 @@
+#Initializing empty board 
 board = [
-    ["-","-","-"],
+    ["-","-","-"], 
     ["-","-","-"],
     ["-","-","-"]] 
 
+#Values of different ending positions which will help in determining value 
+#of nodes of the decision tree
 
+value_dict = {
+    "X": 1,
+    "tie": 0,
+    "O": -1
+}
 
 def print_board_state(board):
     # this functions takes the board as an argument and prints it on the console
@@ -14,7 +22,10 @@ def print_board_state(board):
 
 
 def winner(board):
-    # this functions takes the board as an argument and returns a string 
+    # Arguments :-
+    # board - a nested list which is the current snapshot of the board
+
+    #returns :=
     # "X" - if X wins 
     # "O" - if O wins 
     # "tie" - if game is a tie 
@@ -60,14 +71,51 @@ def winner(board):
     return "tie"
 
 
+def minimax(board, is_this_AIs_turn): 
+    #Arguments :-
+    #board - a nested list which is the current snapshot of the board
+    #is_this_AIs_turn - a boolean which is true if AI is the current Player
+
+    #returns :-
+    #the value of the current node 
+
+    winner_player = winner(board)
+
+    #if we reached the end of the tree
+    if winner_player != "continue":
+        return value_dict[winner_player]
+    
+    #if this is AIs turn i.e the maximizing players turn
+    if is_this_AIs_turn:
+        score = - 2               #anything smaller than min score
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == "-":
+                    board[i][j] = "X"
+                    curr_score = minimax(board,False)
+                    board[i][j] = "-"
+                    score = max(score, curr_score)
+        return score
+    else:
+        score =  2               #anything bigger than max score
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == "-":
+                    board[i][j] = "O"
+                    curr_score = minimax(board,True)
+                    board[i][j] = "-"
+                    score = min(score, curr_score)
+        return score
+
+                
+
+
 
 dummy_board = [
-    ["X","O","X"],
-    ["O","X","O"],
-    ["O","X","O"]] 
+    ["O","X","-"], 
+    ["X","X","O"],
+    ["O","O","-"]]
 
-print(winner(dummy_board))
-
-
+print(minimax(dummy_board,True))
 
 
