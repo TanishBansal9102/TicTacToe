@@ -131,10 +131,75 @@ def ais_move(board):
                     y = j
     return [x, y]
 
-dummy_board = [
-    ["X","O","-"], 
-    ["X","O","O"],
-    ["-","X","-"]]
 
-print(ais_move(dummy_board)[0],ais_move(dummy_board)[1])
+
+
+def game(board):
+    #the main function of the program
+
+    print("")
+    print("Hey human you have made enough memes on me on")
+    print("social media and I am sick of it, therefore ")
+    print("I challenge you to a match of Tic-Tac-Toe")
+    print("You are 'O' and I am 'X' and I being the ")
+    print("superior being , will let you mave the first move")
+    print("")
+    print("")
+
+    will_play = input("Will you play with me? y/N  ")
+
+    print_board_state(board)
+    print("")
+
+    if(will_play.upper() == "Y"):
+        while winner(board) == "continue":
+
+            location = input("Enter space seperated row and column no (0-indexed) of the cell you want to choose: ")
+            space_pos = location.find(" ")
+            x = int(location[ : space_pos])
+            y = int(location[space_pos + 1 : ])
+            board[x][y] = "O"
+
+            print("")
+            print("After your Move-")
+            print_board_state(board)
+            print("")
+
+            if winner(board) == "O": 
+                print("Congratulations! YOU WON")
+                break
+
+            elif winner(board) == "X": 
+                print("HAHAHA! I WON")
+                break
+
+            elif winner(board) == "tie": 
+                print("OOPS! It's a TIE")
+                break
+
+
+            AIs_turn = ais_move(board)
+            x = AIs_turn[0]
+            y = AIs_turn[1]
+            board[x][y] = "X"
+
+            print("After my Move-")
+            print_board_state(board)
+            print("")
+
+            if winner(board) == "O": 
+                print("Congratulations! YOU WON")
+                break
+
+            elif winner(board) == "X": 
+                print("HAHAHA! I WON")
+                break
+
+            elif winner(board) == "tie": 
+                print("OOPS! It's a TIE")
+                break
+            
+
+game(board)
+
 
